@@ -1,0 +1,68 @@
+/* ============================================
+   ThaleOn AI Systems - Main Stylesheet
+   
+   @description: Entry point para todos los estilos CSS
+   @author: ThaleOn AI Systems
+   @version: 1.0.0
+   ============================================ */
+
+/* ========================================
+   BASE
+   Estilos fundamentales y configuración
+   ======================================== */
+
+@import 'base/_variables.css';
+@import 'base/_reset.css';
+/* @import 'base/_typography.css'; */
+/* @import 'base/_utilities.css'; */
+/* @import 'base/_animations.css'; */
+
+/* ========================================
+   LAYOUT
+   Estructura y sistema de grid
+   ======================================== */
+
+/* @import 'layout/_grid.css'; */
+/* @import 'layout/_container.css'; */
+/* @import 'layout/_header.css'; */
+/* @import 'layout/_footer.css'; */
+/* @import 'layout/_sections.css'; */
+
+/* ========================================
+   COMPONENTS
+   Componentes reutilizables
+   ======================================== */
+
+/* @import 'components/_buttons.css'; */
+/* @import 'components/_cards.css'; */
+/* @import 'components/_forms.css'; */
+/* @import 'components/_modals.css'; */
+/* @import 'components/_loader.css'; */
+/* @import 'components/_cursor.css'; */
+/* @import 'components/_tags.css'; */
+/* @import 'components/_tooltips.css'; */
+
+/* ========================================
+   PAGES
+   Estilos específicos de páginas
+   ======================================== */
+
+/* @import 'pages/_home.css'; */
+/* @import 'pages/_academy.css'; */
+/* @import 'pages/_services.css'; */
+/* @import 'pages/_about.css'; */
+/* @import 'pages/_contact.css'; */
+/* @import 'pages/_blog.css'; */
+/* @import 'pages/_404.css'; */
+
+/* ========================================
+   VENDORS
+   Estilos de librerías externas
+   ======================================== */
+
+/* @import 'vendors/_example.css'; */
+
+/* ============================================
+   NOTA: Descomentar los imports a medida
+   que se vayan creando los archivos
+   ============================================ */

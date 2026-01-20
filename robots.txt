@@ -1,0 +1,56 @@
+# ============================================
+# ThaleOn AI Systems - robots.txt
+# https://thaleon.ai/robots.txt
+# ============================================
+
+# Reglas para todos los bots
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://thaleon.ai/sitemap.xml
+
+# Bloquear carpetas privadas/de desarrollo
+Disallow: /api/
+Disallow: /config/
+Disallow: /templates/
+Disallow: /scripts/
+Disallow: /tests/
+Disallow: /docs/
+Disallow: /.github/
+
+# Bloquear archivos de desarrollo
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Permitir assets
+Allow: /assets/
+
+# Bloquear parámetros de tracking
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+
+# Reglas específicas para Google
+User-agent: Googlebot
+Allow: /
+
+# Reglas específicas para Bing
+User-agent: Bingbot
+Allow: /
+
+# Bloquear bots de IA de scraping (opcional)
+# User-agent: GPTBot
+# Disallow: /
+
+# User-agent: ChatGPT-User
+# Disallow: /
+
+# User-agent: CCBot
+# Disallow: /
+
+# User-agent: anthropic-ai
+# Disallow: /
+
+# ============================================
+# Contacto: hello@thaleon.ai
+# ============================================

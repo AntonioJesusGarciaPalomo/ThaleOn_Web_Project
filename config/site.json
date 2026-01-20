@@ -1,0 +1,87 @@
+{
+  "site": {
+    "name": "ThaleOn AI Systems",
+    "shortName": "ThaleOn",
+    "tagline": "Inteligencia Artificial, pensada racionalmente",
+    "description": "Ingeniería de IA transparente, auditable y robusta. Soluciones basadas en rigor matemático.",
+    "url": "https://thaleon.ai",
+    "language": "es",
+    "locale": "es_ES"
+  },
+  
+  "company": {
+    "legalName": "ThaleOn AI Systems LLC",
+    "foundingYear": 2025,
+    "email": "hello@thaleon.ai",
+    "phone": null,
+    "address": {
+      "country": "ES",
+      "region": null,
+      "city": null
+    }
+  },
+  
+  "social": {
+    "github": "https://github.com/thaleon",
+    "linkedin": "https://linkedin.com/company/thaleon",
+    "twitter": "https://x.com/thaleon",
+    "youtube": null,
+    "instagram": null
+  },
+  
+  "seo": {
+    "titleSeparator": " | ",
+    "defaultTitle": "ThaleOn AI Systems",
+    "defaultDescription": "Ingeniería de IA transparente, auditable y robusta. Soluciones basadas en rigor matemático.",
+    "defaultImage": "/assets/images/og/og-default.jpg",
+    "twitterHandle": "@thaleon"
+  },
+  
+  "analytics": {
+    "googleAnalytics": null,
+    "googleTagManager": null,
+    "plausible": null,
+    "fathom": null
+  },
+  
+  "features": {
+    "blog": false,
+    "newsletter": true,
+    "darkModeToggle": false,
+    "i18n": false,
+    "pwa": true,
+    "search": false
+  },
+  
+  "integrations": {
+    "contactForm": {
+      "provider": null,
+      "endpoint": null
+    },
+    "newsletter": {
+      "provider": null,
+      "listId": null
+    },
+    "calendar": {
+      "provider": null,
+      "url": null
+    }
+  },
+  
+  "theme": {
+    "primaryColor": "#c9a227",
+    "secondaryColor": "#1a5490",
+    "backgroundColor": "#0a0a0b",
+    "fontDisplay": "Cormorant Garamond",
+    "fontBody": "Inter",
+    "fontMono": "IBM Plex Mono"
+  },
+  
+  "build": {
+    "outputDir": "dist",
+    "assetsDir": "assets",
+    "minify": true,
+    "sourcemaps": false,
+    "imageOptimization": true
+  }
+}
