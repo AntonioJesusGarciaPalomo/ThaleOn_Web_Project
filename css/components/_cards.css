@@ -1,0 +1,181 @@
+/* ============================================
+   ThaleOn AI Systems - Cards
+   Componentes de tarjetas reutilizables
+   ============================================ */
+
+/* ========================================
+   SERVICE CARDS
+   ======================================== */
+.service-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: calc(var(--space-unit) * 5);
+    position: relative;
+    transition: all var(--duration-slow) var(--ease-out-expo);
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-thales-light), var(--color-gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.service-card:hover,
+.service-card:focus-within {
+    border-color: var(--color-border-hover);
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.service-card:hover::before,
+.service-card:focus-within::before {
+    transform: scaleX(1);
+}
+
+.service-index {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: calc(var(--space-unit) * 4);
+    display: block;
+}
+
+.service-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: calc(var(--space-unit) * 3);
+    color: var(--color-gold);
+    opacity: 0.9;
+}
+
+.service-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    margin-bottom: calc(var(--space-unit) * 2);
+    color: var(--color-text);
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: calc(var(--space-unit) * 3);
+}
+
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-unit);
+}
+
+.service-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-tertiary);
+    background: rgba(255, 255, 255, 0.03);
+    padding: calc(var(--space-unit) * 0.5) calc(var(--space-unit) * 1.5);
+    border: 1px solid var(--color-border);
+}
+
+/* ========================================
+   LESSON CARDS
+   ======================================== */
+.lesson-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transition: all var(--duration-slow) var(--ease-out-expo);
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    max-width: 380px;
+}
+
+.lesson-card:hover,
+.lesson-card:focus-visible {
+    border-color: var(--color-border-hover);
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.lesson-preview {
+    height: 180px;
+    background: linear-gradient(145deg, var(--color-bg) 0%, var(--color-bg-elevated) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.lesson-preview svg {
+    width: 85%;
+    height: 85%;
+    opacity: 0.9;
+}
+
+.lesson-content {
+    padding: calc(var(--space-unit) * 3);
+}
+
+.lesson-content h4 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: calc(var(--space-unit) * 1);
+    color: var(--color-text);
+}
+
+.lesson-content p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: calc(var(--space-unit) * 2);
+}
+
+.lesson-meta {
+    display: flex;
+    gap: var(--space-unit);
+}
+
+.lesson-meta-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-tertiary);
+    background: rgba(255, 255, 255, 0.03);
+    padding: calc(var(--space-unit) * 0.5) calc(var(--space-unit) * 1);
+    border: 1px solid var(--color-border);
+}
+
+/* ========================================
+   GENERIC CARD BASE
+   ======================================== */
+.card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: calc(var(--space-unit) * 4);
+    transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.card:hover {
+    border-color: var(--color-border-hover);
+}
+
+.card-elevated {
+    box-shadow: var(--shadow-md);
+}
+
+.card-elevated:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}

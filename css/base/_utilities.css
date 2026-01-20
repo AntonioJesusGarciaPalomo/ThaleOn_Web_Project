@@ -1,0 +1,234 @@
+/* ============================================
+   ThaleOn AI Systems - Utilities
+   Clases de utilidad
+   ============================================ */
+
+/* ========================================
+   LAYOUT UTILITIES
+   ======================================== */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 calc(var(--space-unit) * 4);
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 calc(var(--space-unit) * 8);
+    }
+}
+
+/* ========================================
+   DISPLAY
+   ======================================== */
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.flex {
+    display: flex;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.grid {
+    display: grid;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ========================================
+   FLEXBOX
+   ======================================== */
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.items-end {
+    align-items: flex-end;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gap-1 {
+    gap: calc(var(--space-unit) * 1);
+}
+
+.gap-2 {
+    gap: calc(var(--space-unit) * 2);
+}
+
+.gap-3 {
+    gap: calc(var(--space-unit) * 3);
+}
+
+.gap-4 {
+    gap: calc(var(--space-unit) * 4);
+}
+
+/* ========================================
+   SPACING
+   ======================================== */
+.m-auto {
+    margin: auto;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* ========================================
+   SIZING
+   ======================================== */
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.max-w-sm {
+    max-width: var(--container-sm, 640px);
+}
+
+.max-w-md {
+    max-width: var(--container-md, 768px);
+}
+
+.max-w-lg {
+    max-width: var(--container-lg, 1024px);
+}
+
+/* ========================================
+   POSITIONING
+   ======================================== */
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.sticky {
+    position: sticky;
+}
+
+/* ========================================
+   VISIBILITY & ACCESSIBILITY
+   ======================================== */
+.visually-hidden,
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+/* ========================================
+   OVERFLOW
+   ======================================== */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+/* ========================================
+   POINTER & CURSOR
+   ======================================== */
+.pointer-events-none {
+    pointer-events: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* ========================================
+   Z-INDEX
+   ======================================== */
+.z-0 {
+    z-index: 0;
+}
+
+.z-10 {
+    z-index: 10;
+}
+
+.z-20 {
+    z-index: 20;
+}
+
+.z-50 {
+    z-index: 50;
+}
