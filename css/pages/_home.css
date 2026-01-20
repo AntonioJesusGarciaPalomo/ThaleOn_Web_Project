@@ -64,14 +64,58 @@
     align-items: center;
 }
 
-.hero-logo {
-    width: clamp(280px, 40vw, 450px);
+/* ========================================
+   THALES THEOREM ANIMATION CONTAINER
+   ======================================== */
+.hero-thales-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
     max-width: 100%;
-    margin: 0 auto calc(var(--space-unit) * 6);
-    display: block;
+    margin: 0 auto calc(var(--space-unit) * 2);
     opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    animation: heroReveal 1.2s var(--ease-out-expo) forwards 0.5s;
+    transform: translateY(30px) scale(0.95);
+    animation: heroReveal 1s var(--ease-out-expo) forwards 0.3s;
+}
+
+@media (min-width: 640px) {
+    .hero-thales-container {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-thales-container {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+.hero-thales-container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: grab;
+    background: transparent;
+}
+
+.hero-thales-container canvas:active {
+    cursor: grabbing;
+}
+
+/* Thales hint text */
+.thales-hint {
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.35);
+    white-space: nowrap;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 2s;
 }
 
 .hero-title {
@@ -184,15 +228,20 @@
    REDUCED MOTION
    ======================================== */
 @media (prefers-reduced-motion: reduce) {
-    .hero-logo,
+    .hero-thales-container,
     .hero-title,
     .hero-subtitle,
     .hero-quote,
     .hero-cta,
-    .hero-scroll {
+    .hero-scroll,
+    .thales-hint {
         opacity: 1 !important;
         transform: none !important;
         animation: none !important;
+    }
+
+    .thales-hint {
+        transform: translateX(-50%) !important;
     }
 
     .hero-scroll-line {

@@ -1,4 +1,4 @@
-# 🏛️ ThaleOn AI Systems - Web Platform
+# ThaleOn AI Systems - Web Platform
 
 > *"Inteligencia Artificial, pensada racionalmente."*
 
@@ -6,7 +6,26 @@ Plataforma web oficial de ThaleOn AI Systems. Una landing page premium con acade
 
 ---
 
-## 🚀 Quick Start
+## Características Principales
+
+### Hero Interactivo
+
+- **Animación del Teorema de Thales**: Visualización interactiva del Segundo Teorema de Thales con círculo completo, símbolo Theta (Θ) como marca de agua, y punto C arrastrable que demuestra que todo ángulo inscrito en un semicírculo es recto (90°).
+- **Fondo de Fórmulas Matemáticas**: Red de fórmulas flotantes conectadas por líneas degradadas. Incluye fórmulas de cálculo, machine learning, estadística, álgebra lineal y transformers.
+- **Título Estilizado**: "ThaleOn AI" con la "O" en color dorado y la "n" en azul Thales.
+
+### Animaciones
+
+- Fórmulas con movimiento fluido y conexiones visibles entre ellas
+- Dos tipografías: Cormorant Garamond (serif) e IBM Plex Mono (monospace)
+- Efectos de fade-in escalonados
+- Colores dorado y azul con sombras sutiles
+- Soporte táctil para dispositivos móviles
+- Respeto a `prefers-reduced-motion` para accesibilidad
+
+---
+
+## Quick Start
 
 ### Desarrollo Local
 
@@ -102,8 +121,8 @@ Sistema basado en unidad de 8px (`--space-unit`).
 
 - [x] Landing page responsive
 - [x] Animaciones con respeto a `prefers-reduced-motion`
-- [x] Cursor personalizado (solo desktop con pointer fino)
-- [x] Canvas interactivo en hero
+- [x] Animación interactiva del Teorema de Thales
+- [x] Fondo con fórmulas matemáticas flotantes conectadas
 - [x] Scroll reveal animations
 - [x] SEO optimizado (Open Graph, Twitter Cards, JSON-LD)
 - [x] PWA ready (manifest.json)

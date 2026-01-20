@@ -176,14 +176,14 @@
     <nav class="nav" id="nav" role="navigation" aria-label="Navegación principal">
         <div class="container nav-inner">
             <a href="#" class="nav-logo" aria-label="ThaleOn AI Systems - Ir al inicio">
-                <img src="assets/images/brand/logo.png" alt="ThaleOn Logo" width="60" height="60">
+                <img src="assets/images/brand/logo.png" alt="ThaleOn Logo" width="70" height="70">
                 <span class="nav-logo-text">ThaleOn AI Systems</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#manifest" class="nav-link">Manifiesto</a></li>
                 <li><a href="#services" class="nav-link">Servicios</a></li>
                 <li><a href="#academy" class="nav-link">Academia</a></li>
-                <li><a href="#founder" class="nav-link">Fundador</a></li>
+                <li><a href="#founder" class="nav-link">Fundadores</a></li>
             </ul>
             <a href="#contact" class="nav-cta">Contacto</a>
             <button class="nav-mobile-btn" id="mobileBtn" aria-label="Abrir menú de navegación" aria-expanded="false"
@@ -215,9 +215,12 @@
             </div>
             <div class="container">
                 <div class="hero-content">
-                    <img src="assets/images/brand/logo.png" alt="ThaleOn AI Systems - Logo" class="hero-logo"
-                        width="450" height="450">
-                    <h1 class="hero-title" id="hero-title">ThaleOn AI Systems</h1>
+                    <!-- Thales' Second Theorem Animation -->
+                    <div class="hero-thales-container" aria-hidden="true">
+                        <canvas id="thalesHeroCanvas"></canvas>
+                    
+                    </div>
+                    <h1 class="hero-title" id="hero-title">Thale<span class="text-gold">O</span><span class="text-blue">n</span> AI</h1>
                     <p class="hero-subtitle">Inteligencia Artificial, pensada racionalmente.</p>
                     <p class="hero-quote" lang="en">A multitude of words is no proof of a prudent mind. <span
                             lang="es">— Tales de Mileto</span></p>
@@ -744,160 +747,244 @@
         });
 
         // ============================================
-        // HERO CANVAS - Animated Network
+        // HERO CANVAS - Floating Formulas Network (Enhanced)
         // ============================================
-        const canvas = document.getElementById('heroCanvas');
-        const ctx = canvas.getContext('2d');
-        let nodes = [];
-        let mouse = { x: null, y: null, radius: 150 };
-        let canvasAnimationId = null;
-        let isCanvasVisible = true;
+        (function initFormulasBg() {
+            const canvas = document.getElementById('heroCanvas');
+            if (!canvas) return;
 
-        function resizeCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-            const rect = canvas.getBoundingClientRect();
+            const ctx = canvas.getContext('2d');
+            let formulas = [];
+            let mouse = { x: null, y: null };
+            let canvasAnimationId = null;
+            let isCanvasVisible = true;
 
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
+            // Extended mathematical formulas collection
+            const formulaTexts = [
+                // Cálculo y optimización
+                '∇f(x)', '∂L/∂w', '∫f(x)dx', 'lim x→∞', 'Σᵢ xᵢ', 'Πᵢ pᵢ', 'dx/dt', '∇²f',
+                // Machine Learning
+                'σ(z)', 'W·x + b', 'softmax', 'ReLU(x)', 'tanh(x)', 'P(y|x)', 'argmax', 'L(θ)',
+                // Estadística
+                'E[X]', 'Var(X)', 'μ ± σ', 'N(0,1)', 'p(x|θ)', 'H(X)', 'KL(p||q)',
+                // Álgebra lineal
+                'Aᵀ', 'A⁻¹', 'det(A)', 'λᵢ', 'tr(A)', 'rank(A)', '‖x‖₂', 'x·y',
+                // Transformers/DL
+                'Attention', 'Q·Kᵀ/√d', 'LayerNorm', 'Dropout', 'BatchNorm',
+                // Símbolos elegantes
+                'α β γ', 'θ', 'φ(x)', 'ψ(t)', 'ε → 0', '∀x ∈ ℝ', '∃ε > 0'
+            ];
 
-            ctx.scale(dpr, dpr);
-            canvas.style.width = rect.width + 'px';
-            canvas.style.height = rect.height + 'px';
+            // Configuration
+            const config = {
+                connectionDistance: 200,
+                mouseRepelDistance: 150,
+                mouseRepelStrength: 0.02,
+                baseSpeed: 0.4,
+                baseFontSize: 14,
+                fontSizeVariation: 4,
+                connectionOpacityMultiplier: 1.2,
+                connectionLineWidth: 1.5
+            };
 
-            initNodes();
-        }
+            function resizeCanvas() {
+                const dpr = window.devicePixelRatio || 1;
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                initFormulas(rect.width, rect.height);
+            }
 
-        function initNodes() {
-            nodes = [];
-            const rect = canvas.getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height;
+            function initFormulas(width, height) {
+                formulas = [];
+                const area = width * height;
+                const count = Math.min(Math.max(Math.floor(area / 25000), 12), 35);
+                const shuffled = [...formulaTexts].sort(() => Math.random() - 0.5);
 
-            const density = Math.min(width, height) / 15;
-            const nodeCount = Math.floor((width * height) / (density * density));
+                for (let i = 0; i < count; i++) {
+                    const text = shuffled[i % shuffled.length];
+                    const fontSize = config.baseFontSize + Math.random() * config.fontSizeVariation;
+                    const isSerif = Math.random() > 0.3;
 
-            for (let i = 0; i < Math.min(nodeCount, 80); i++) {
-                nodes.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    radius: Math.random() * 1.5 + 0.5
+                    formulas.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * config.baseSpeed,
+                        vy: (Math.random() - 0.5) * config.baseSpeed,
+                        text: text,
+                        fontSize: fontSize,
+                        opacity: 0,
+                        targetOpacity: 0.25 + Math.random() * 0.35,
+                        fadeStart: Date.now() + Math.random() * 2000,
+                        font: isSerif
+                            ? `${fontSize}px "Cormorant Garamond", Georgia, serif`
+                            : `${fontSize * 0.85}px "IBM Plex Mono", monospace`,
+                        rotation: (Math.random() - 0.5) * 0.1,
+                        hue: Math.random() > 0.7 ? 'gold' : 'blue'
+                    });
+                }
+            }
+
+            function drawFormulasNetwork() {
+                if (document.hidden || !isCanvasVisible || prefersReducedMotion()) {
+                    canvasAnimationId = requestAnimationFrame(drawFormulasNetwork);
+                    return;
+                }
+
+                const rect = canvas.getBoundingClientRect();
+                const width = rect.width;
+                const height = rect.height;
+                const now = Date.now();
+
+                ctx.clearRect(0, 0, width, height);
+
+                // Update opacities (fade in effect)
+                formulas.forEach(f => {
+                    if (now > f.fadeStart && f.opacity < f.targetOpacity) {
+                        f.opacity = Math.min(f.opacity + 0.008, f.targetOpacity);
+                    }
                 });
-            }
-        }
 
-        // Throttled mouse move for canvas
-        let canvasMouseThrottle = null;
-        canvas.addEventListener('mousemove', (e) => {
-            if (canvasMouseThrottle) return;
-            canvasMouseThrottle = setTimeout(() => {
-                canvasMouseThrottle = null;
-            }, 16); // ~60fps
+                // Draw connections with gradient
+                ctx.lineCap = 'round';
+                for (let i = 0; i < formulas.length; i++) {
+                    for (let j = i + 1; j < formulas.length; j++) {
+                        const f1 = formulas[i];
+                        const f2 = formulas[j];
+                        const dx = f1.x - f2.x;
+                        const dy = f1.y - f2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
 
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-        });
+                        if (distance < config.connectionDistance) {
+                            const opacity = (1 - distance / config.connectionDistance) *
+                                Math.min(f1.opacity, f2.opacity) * config.connectionOpacityMultiplier;
 
-        canvas.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
+                            const gradient = ctx.createLinearGradient(f1.x, f1.y, f2.x, f2.y);
+                            const color1 = f1.hue === 'gold'
+                                ? `rgba(201, 162, 39, ${opacity})`
+                                : `rgba(45, 125, 210, ${opacity})`;
+                            const color2 = f2.hue === 'gold'
+                                ? `rgba(201, 162, 39, ${opacity})`
+                                : `rgba(45, 125, 210, ${opacity})`;
 
-        function drawNetwork() {
-            // Pause animation when tab is not visible or reduced motion is preferred
-            if (document.hidden || !isCanvasVisible || prefersReducedMotion()) {
-                canvasAnimationId = requestAnimationFrame(drawNetwork);
-                return;
-            }
+                            gradient.addColorStop(0, color1);
+                            gradient.addColorStop(1, color2);
 
-            const rect = canvas.getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height;
-
-            ctx.clearRect(0, 0, width, height);
-
-            // Draw connections
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 180) {
-                        const opacity = (1 - distance / 180) * 0.15;
-                        ctx.beginPath();
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.strokeStyle = `rgba(26, 84, 144, ${opacity})`;
-                        ctx.lineWidth = 1;
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            // Update and draw nodes
-            nodes.forEach(node => {
-                // Mouse interaction
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = mouse.x - node.x;
-                    const dy = mouse.y - node.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < mouse.radius) {
-                        const force = (mouse.radius - distance) / mouse.radius;
-                        node.x -= dx * force * 0.02;
-                        node.y -= dy * force * 0.02;
+                            ctx.beginPath();
+                            ctx.moveTo(f1.x, f1.y);
+                            ctx.lineTo(f2.x, f2.y);
+                            ctx.strokeStyle = gradient;
+                            ctx.lineWidth = config.connectionLineWidth;
+                            ctx.stroke();
+                        }
                     }
                 }
 
-                // Draw node
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(201, 162, 39, 0.6)';
-                ctx.fill();
+                // Draw formulas
+                formulas.forEach(f => {
+                    if (f.opacity < 0.01) return;
 
-                // Update position
-                node.x += node.vx;
-                node.y += node.vy;
+                    ctx.save();
+                    ctx.translate(f.x, f.y);
+                    ctx.rotate(f.rotation);
 
-                // Bounce off edges
-                if (node.x < 0 || node.x > width) node.vx *= -1;
-                if (node.y < 0 || node.y > height) node.vy *= -1;
+                    const color = f.hue === 'gold'
+                        ? `rgba(201, 162, 39, ${f.opacity})`
+                        : `rgba(120, 160, 200, ${f.opacity * 0.9})`;
 
-                // Clamp to bounds
-                node.x = Math.max(0, Math.min(width, node.x));
-                node.y = Math.max(0, Math.min(height, node.y));
-            });
+                    ctx.font = f.font;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillStyle = color;
 
-            canvasAnimationId = requestAnimationFrame(drawNetwork);
-        }
+                    // Subtle shadow for depth
+                    ctx.shadowColor = f.hue === 'gold'
+                        ? 'rgba(201, 162, 39, 0.2)'
+                        : 'rgba(26, 84, 144, 0.2)';
+                    ctx.shadowBlur = 8;
 
-        // Visibility API - pause canvas when tab not visible
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden && !canvasAnimationId) {
-                drawNetwork();
+                    ctx.fillText(f.text, 0, 0);
+                    ctx.restore();
+
+                    // Mouse repulsion
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dx = mouse.x - f.x;
+                        const dy = mouse.y - f.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < config.mouseRepelDistance && distance > 0) {
+                            const force = (config.mouseRepelDistance - distance) / config.mouseRepelDistance;
+                            f.x -= dx * force * config.mouseRepelStrength;
+                            f.y -= dy * force * config.mouseRepelStrength;
+                        }
+                    }
+
+                    // Movement
+                    f.x += f.vx;
+                    f.y += f.vy;
+
+                    // Bounce off edges
+                    const margin = 50;
+                    if (f.x < margin) { f.x = margin; f.vx *= -1; }
+                    if (f.x > width - margin) { f.x = width - margin; f.vx *= -1; }
+                    if (f.y < margin) { f.y = margin; f.vy *= -1; }
+                    if (f.y > height - margin) { f.y = height - margin; f.vy *= -1; }
+                });
+
+                canvasAnimationId = requestAnimationFrame(drawFormulasNetwork);
             }
-        });
 
-        // Intersection Observer - pause canvas when hero not in view
-        const heroSection = document.getElementById('hero');
-        const heroObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                isCanvasVisible = entry.isIntersecting;
+            // Mouse events
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
             });
-        }, { threshold: 0.1 });
 
-        heroObserver.observe(heroSection);
+            canvas.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
 
-        // Initialize canvas
-        window.addEventListener('resize', debounce(resizeCanvas, 200));
-        resizeCanvas();
+            // Touch support
+            canvas.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    const rect = canvas.getBoundingClientRect();
+                    mouse.x = e.touches[0].clientX - rect.left;
+                    mouse.y = e.touches[0].clientY - rect.top;
+                }
+            }, { passive: true });
 
-        if (!prefersReducedMotion()) {
-            drawNetwork();
-        }
+            canvas.addEventListener('touchend', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            // Visibility observer
+            const heroSection = document.getElementById('hero');
+            const heroObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    isCanvasVisible = entry.isIntersecting;
+                });
+            }, { threshold: 0.1 });
+            heroObserver.observe(heroSection);
+
+            // Visibility API
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && !canvasAnimationId) {
+                    drawFormulasNetwork();
+                }
+            });
+
+            // Initialize
+            window.addEventListener('resize', debounce(resizeCanvas, 200));
+            resizeCanvas();
+
+            if (!prefersReducedMotion()) {
+                drawFormulasNetwork();
+            }
+        })();
 
         // ============================================
         // SCROLL REVEAL
@@ -959,11 +1046,219 @@
         });
 
         // ============================================
+        // THALES' SECOND THEOREM ANIMATION
+        // Static, user-interactive only with full circle and Theta watermark
+        // ============================================
+        (function initThalesHero() {
+            const canvas = document.getElementById('thalesHeroCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+
+            // State - starts at center (90 degrees = π/2)
+            let center = { x: 0, y: 0 };
+            let radius = 0;
+            let pointA = { x: 0, y: 0 };
+            let pointB = { x: 0, y: 0 };
+            let pointC = { x: 0, y: 0 };
+            let angleC = Math.PI / 2; // Center position (top of semicircle)
+            let isDragging = false;
+
+            function resize() {
+                const container = canvas.parentElement;
+                const size = container.offsetWidth;
+                if (size <= 0) return;
+
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = size * dpr;
+                canvas.height = size * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                center = { x: size / 2, y: size / 2 };
+                radius = size * 0.38;
+                updatePoints();
+                draw();
+            }
+
+            function updatePoints() {
+                pointA = { x: center.x - radius, y: center.y };
+                pointB = { x: center.x + radius, y: center.y };
+                pointC = { x: center.x + radius * Math.cos(angleC), y: center.y - radius * Math.sin(angleC) };
+            }
+
+            function draw() {
+                const size = canvas.width / (window.devicePixelRatio || 1);
+                ctx.clearRect(0, 0, size, size);
+
+                // Theta watermark (Θ) - background symbol
+                ctx.font = `300 ${radius * 1.1}px "Cormorant Garamond", Georgia, serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = 'rgba(201, 162, 39, 0.06)';
+                ctx.fillText('Θ', center.x, center.y);
+
+                // Full circle (subtle fill)
+                ctx.beginPath();
+                ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(26, 84, 144, 0.03)';
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(26, 84, 144, 0.25)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Semicircle highlight (upper semicircle emphasized)
+                ctx.beginPath();
+                ctx.arc(center.x, center.y, radius, Math.PI, 0);
+                ctx.strokeStyle = '#1a5490';
+                ctx.lineWidth = 2.5;
+                ctx.stroke();
+
+                // Diameter (dashed line AB)
+                ctx.beginPath();
+                ctx.moveTo(pointA.x, pointA.y);
+                ctx.lineTo(pointB.x, pointB.y);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([6, 6]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Triangle ACB (with subtle fill)
+                ctx.beginPath();
+                ctx.moveTo(pointA.x, pointA.y);
+                ctx.lineTo(pointC.x, pointC.y);
+                ctx.lineTo(pointB.x, pointB.y);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(201, 162, 39, 0.05)';
+                ctx.fill();
+                ctx.strokeStyle = '#c9a227';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Right angle indicator at C (green)
+                const iSize = 14;
+                const CA = { x: pointA.x - pointC.x, y: pointA.y - pointC.y };
+                const CB = { x: pointB.x - pointC.x, y: pointB.y - pointC.y };
+                const magCA = Math.sqrt(CA.x ** 2 + CA.y ** 2);
+                const magCB = Math.sqrt(CB.x ** 2 + CB.y ** 2);
+                const uCA = { x: CA.x / magCA, y: CA.y / magCA };
+                const uCB = { x: CB.x / magCB, y: CB.y / magCB };
+
+                const p1 = { x: pointC.x + uCA.x * iSize, y: pointC.y + uCA.y * iSize };
+                const p2 = { x: pointC.x + uCB.x * iSize, y: pointC.y + uCB.y * iSize };
+                const corner = { x: pointC.x + (uCA.x + uCB.x) * iSize, y: pointC.y + (uCA.y + uCB.y) * iSize };
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(corner.x, corner.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = '#22c55e';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Points A and B
+                ctx.beginPath();
+                ctx.arc(pointA.x, pointA.y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(pointB.x, pointB.y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fill();
+
+                // Point C with glow effect
+                ctx.beginPath();
+                ctx.arc(pointC.x, pointC.y, 12, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(201, 162, 39, 0.15)';
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(pointC.x, pointC.y, 7, 0, Math.PI * 2);
+                ctx.fillStyle = '#c9a227';
+                ctx.fill();
+
+                // Center dot
+                ctx.beginPath();
+                ctx.arc(center.x, center.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                ctx.fill();
+
+                // Labels (A, B, C)
+                ctx.font = '600 12px "IBM Plex Mono", monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.fillText('A', pointA.x - 16, pointA.y + 16);
+                ctx.fillText('B', pointB.x + 16, pointB.y + 16);
+                ctx.fillStyle = '#c9a227';
+                ctx.fillText('C', pointC.x + 18 * Math.cos(angleC), pointC.y - 18 * Math.sin(angleC));
+            }
+
+            // Event handlers - user interaction only
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                return { x, y };
+            }
+
+            function nearC(pos) {
+                return Math.sqrt((pos.x - pointC.x) ** 2 + (pos.y - pointC.y) ** 2) < 35;
+            }
+
+            function startDrag(e) {
+                if (nearC(getPos(e))) {
+                    isDragging = true;
+                    canvas.style.cursor = 'grabbing';
+                    if (e.cancelable) e.preventDefault();
+                }
+            }
+
+            function moveDrag(e) {
+                const pos = getPos(e);
+                if (isDragging) {
+                    let angle = Math.atan2(-(pos.y - center.y), pos.x - center.x);
+                    // Clamp to upper semicircle
+                    angle = Math.max(0.1, Math.min(Math.PI - 0.1, angle));
+                    angleC = angle;
+                    updatePoints();
+                    draw();
+                    if (e.cancelable) e.preventDefault();
+                } else {
+                    canvas.style.cursor = nearC(pos) ? 'grab' : 'default';
+                }
+            }
+
+            function endDrag() {
+                isDragging = false;
+                canvas.style.cursor = 'default';
+            }
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrag);
+            canvas.addEventListener('mousemove', moveDrag);
+            canvas.addEventListener('mouseup', endDrag);
+            canvas.addEventListener('mouseleave', endDrag);
+
+            // Touch events
+            canvas.addEventListener('touchstart', startDrag, { passive: false });
+            canvas.addEventListener('touchmove', moveDrag, { passive: false });
+            canvas.addEventListener('touchend', endDrag);
+
+            // Init
+            resize();
+            window.addEventListener('resize', debounce(resize, 150));
+        })();
+
+        // ============================================
         // CLEANUP ON PAGE UNLOAD
         // ============================================
         window.addEventListener('beforeunload', () => {
             if (canvasAnimationId) {
                 cancelAnimationFrame(canvasAnimationId);
+            }
+            if (thalesAnimationId) {
+                cancelAnimationFrame(thalesAnimationId);
             }
         });
     </script>
